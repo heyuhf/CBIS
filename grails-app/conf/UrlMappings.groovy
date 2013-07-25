@@ -4,6 +4,7 @@ class UrlMappings {
 		"/$controller/$action?/$id?"{
 			constraints {
 				// apply constraints here
+                                controller(matches:/.*[^(services)].*/)
 			}
 		}
 
