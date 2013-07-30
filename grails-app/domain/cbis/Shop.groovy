@@ -7,7 +7,7 @@ class Shop {
     String description
     String[] shopLogoUrls
     static belongsTo=User
-    static hasMany=[goods:Goods]
+    static hasMany=[goods:Goods,shopTags:ShopTag,ads:Ad]
     static constraints = {
         shopName(size:2..20,blank:false)
         address(maxSize:200,blank:false)

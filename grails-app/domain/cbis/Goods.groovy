@@ -9,6 +9,7 @@ class Goods {
     String[] goodPicUrls
     Shop shop
     static belongsTo=Shop
+    static hasMany=[goodsTags:GoodsTag]
     static constraints = {
         goodName(size:2..10,blank:false)
         price(blank:false)
