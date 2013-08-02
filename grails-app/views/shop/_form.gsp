@@ -18,6 +18,14 @@
 	<g:textField name="address" maxlength="200" required="" value="${shopInstance?.address}"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: shopInstance, field: 'ads', 'error')} ">
+	<label for="ads">
+		<g:message code="shop.ads.label" default="Ads" />
+		
+	</label>
+	<g:select name="ads" from="${cbis.Ad.list()}" multiple="multiple" optionKey="id" size="5" value="${shopInstance?.ads*.id}" class="many-to-many"/>
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: shopInstance, field: 'description', 'error')} ">
 	<label for="description">
 		<g:message code="shop.description.label" default="Description" />
@@ -43,12 +51,20 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: shopInstance, field: 'shopLogoUrls', 'error')} required">
-	<label for="shopLogoUrls">
-		<g:message code="shop.shopLogoUrls.label" default="Shop Logo Urls" />
-		<span class="required-indicator">*</span>
+<div class="fieldcontain ${hasErrors(bean: shopInstance, field: 'shopLogoUrl', 'error')} ">
+	<label for="shopLogoUrl">
+		<g:message code="shop.shopLogoUrl.label" default="Shop Logo Url" />
+		
 	</label>
-	
+	<g:textField name="shopLogoUrl" value="${shopInstance?.shopLogoUrl}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: shopInstance, field: 'shopTags', 'error')} ">
+	<label for="shopTags">
+		<g:message code="shop.shopTags.label" default="Shop Tags" />
+		
+	</label>
+	<g:select name="shopTags" from="${cbis.ShopTag.list()}" multiple="multiple" optionKey="id" size="5" value="${shopInstance?.shopTags*.id}" class="many-to-many"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: shopInstance, field: 'user', 'error')} required">

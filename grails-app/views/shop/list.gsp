@@ -30,7 +30,7 @@
 					
 						<g:sortableColumn property="description" title="${message(code: 'shop.description.label', default: 'Description')}" />
 					
-						<g:sortableColumn property="shopLogoUrls" title="${message(code: 'shop.shopLogoUrls.label', default: 'Shop Logo Urls')}" />
+						<g:sortableColumn property="shopLogoUrl" title="${message(code: 'shop.shopLogoUrl.label', default: 'Shop Logo Url')}" />
 					
 						<th><g:message code="shop.user.label" default="User" /></th>
 					
@@ -46,7 +46,7 @@
 					
 						<td>${fieldValue(bean: shopInstance, field: "description")}</td>
 					
-						<td>${fieldValue(bean: shopInstance, field: "shopLogoUrls")}</td>
+						<td>${fieldValue(bean: shopInstance, field: "shopLogoUrl")}</td>
 					
 						<td>${fieldValue(bean: shopInstance, field: "user")}</td>
 					

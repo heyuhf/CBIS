@@ -1,0 +1,125 @@
+body{
+    text-align: center;
+}
+
+#wrap{
+    margin: 0 auto; 
+    border-right: 1px solid #aaaaaa;
+    width:960px; 
+    text-align: left;
+    box-shadow: -5px -7px 5px 1px #aaaaaa;
+}
+
+.clear{
+    clear: both;
+}
+
+.message{
+    color: #009933;
+    font-size: 20px;
+}
+
+/* NAVIGATION MENU */
+.nav {
+	background-color: #efefef;
+	padding: 0.5em 0.75em;
+	box-shadow: 0 0 5px 1px #aaaaaa;
+	
+}
+
+.nav ul {
+	overflow: hidden;
+	padding-left: 0;
+	zoom: 1;
+}
+
+.nav li {
+	display: block;
+	float: left;
+	list-style-type: none;
+	margin-right: 0.5em;
+	padding: 0;
+}
+
+/*CONTENT*/
+#content{
+    
+}
+#content_left{
+    
+    width: 25%;
+    float: left;
+    border: 2px solid #EEE;
+    box-shadow: 0 0 5px mediumslateblue;
+    background-color: #ccccff;
+}
+#content_right{
+    background-color: #ede7e7;
+    margin-left: 20px;
+    width: 70%;
+    float:left;
+    border: 2px solid #EEE;
+    box-shadow: 0 0 5px aqua;
+    
+}
+
+/*登陆*/
+.login_box{
+    background-color: #EEE;
+    border: .2em solid #FFF;
+    border-radius: 0.6em;
+    box-shadow: 0px 0px 1.25em #CCCCCC;
+    -moz-border-radius: 0.6em;
+    -webkit-border-radius: 0.6em;
+    
+    margin-left: 5px;
+    padding-left: 5px;
+    padding-top: 10px;
+    padding-right: 10px !important;  
+    padding-right: 15px;
+    width: 270px;
+}
+
+.login_input{
+    text-align: right;
+    margin-top: 10px;
+    
+}
+
+label{
+    cursor: pointer;
+    text-align: right;
+    display: inline-block;
+}
+
+.textbox{
+    height: 30px;
+    font-size: 15px;
+    size: 15px;
+}
+
+.login_button{
+    margin-top: 10px;
+    margin-left: 80px;
+    width: 100px;
+    height: 40px;
+    color: green;
+}
+
+/*bottom*/
+#bottom hr{
+    color: red;
+    margin-top: 20px;
+    
+}
+#bottom ul {
+	margin-left: 500px;
+        font-size: 13px;
+}
+#bottom li {
+	display: block;
+	float: left;
+	list-style-type: none;
+	margin-right: 0.5em;
+	padding: 0;
+}

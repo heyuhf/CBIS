@@ -7,7 +7,7 @@ class UserController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
-        redirect(action: "list", params: params)
+        
     }
 
     def list(Integer max) {
@@ -98,5 +98,22 @@ class UserController {
             flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'user.label', default: 'User'), id])
             redirect(action: "show", id: id)
         }
+    }
+    
+    def login(){
+        
+    }
+    
+    def frame_index(){
+        
+    }
+    
+    def frame_account(){
+        
+    }
+    
+    def frame_shop(Integer max){
+        params.max = Math.min(max ?: 10, 100)
+        [shopInstanceList: Shop.list(params), shopInstanceTotal: Shop.count()]
     }
 }

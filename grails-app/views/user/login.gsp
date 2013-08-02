@@ -54,8 +54,9 @@
         
       </div>
       
-      <hr style="color: red;margin-top: 200px;"/>
+      
       <div id="bottom">
+        <hr/>
         <ul>
           <li>帮助</li>
           <li>版权声明</li>

@@ -41,6 +41,17 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${shopInstance?.ads}">
+				<li class="fieldcontain">
+					<span id="ads-label" class="property-label"><g:message code="shop.ads.label" default="Ads" /></span>
+					
+						<g:each in="${shopInstance.ads}" var="a">
+						<span class="property-value" aria-labelledby="ads-label"><g:link controller="ad" action="show" id="${a.id}">${a?.encodeAsHTML()}</g:link></span>
+						</g:each>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${shopInstance?.description}">
 				<li class="fieldcontain">
 					<span id="description-label" class="property-label"><g:message code="shop.description.label" default="Description" /></span>
@@ -61,9 +72,22 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${shopInstance?.shopLogoUrls}">
+				<g:if test="${shopInstance?.shopLogoUrl}">
 				<li class="fieldcontain">
-					<span id="shopLogoUrls-label" class="property-label"><g:message code="shop.shopLogoUrls.label" default="Shop Logo Urls" /></span>
+					<span id="shopLogoUrl-label" class="property-label"><g:message code="shop.shopLogoUrl.label" default="Shop Logo Url" /></span>
+					
+                                        <span class="property-value" aria-labelledby="shopLogoUrl-label"><img src="../../uploads/shopLogo/${shopInstance.shopName}_Logo.jpg"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${shopInstance?.shopTags}">
+				<li class="fieldcontain">
+					<span id="shopTags-label" class="property-label"><g:message code="shop.shopTags.label" default="Shop Tags" /></span>
+					
+						<g:each in="${shopInstance.shopTags}" var="s">
+						<span class="property-value" aria-labelledby="shopTags-label"><g:link controller="shopTag" action="show" id="${s.id}">${s?.encodeAsHTML()}</g:link></span>
+						</g:each>
 					
 				</li>
 				</g:if>
