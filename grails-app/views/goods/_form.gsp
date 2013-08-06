@@ -42,12 +42,20 @@
 	<g:textField name="onsale" required="" value="${goodsInstance?.onsale}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: goodsInstance, field: 'goodPicUrls', 'error')} required">
-	<label for="goodPicUrls">
-		<g:message code="goods.goodPicUrls.label" default="Good Pic Urls" />
-		<span class="required-indicator">*</span>
+<div class="fieldcontain ${hasErrors(bean: goodsInstance, field: 'goodsPicUrls', 'error')} ">
+	<label for="goodsPicUrls">
+		<g:message code="goods.goodsPicUrls.label" default="Goods Pic Urls" />
+		
 	</label>
-	
+	<g:textField name="goodsPicUrls" value="${goodsInstance?.goodsPicUrls}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: goodsInstance, field: 'goodsTags', 'error')} ">
+	<label for="goodsTags">
+		<g:message code="goods.goodsTags.label" default="Goods Tags" />
+		
+	</label>
+	<g:select name="goodsTags" from="${cbis.GoodsTag.list()}" multiple="multiple" optionKey="id" size="5" value="${goodsInstance?.goodsTags*.id}" class="many-to-many"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: goodsInstance, field: 'shop', 'error')} required">

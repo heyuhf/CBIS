@@ -15,7 +15,8 @@ body{
 }
 
 .message{
-    color: #009933;
+    text-align: left;
+    color: #009966;
     font-size: 20px;
 }
 
@@ -61,6 +62,9 @@ body{
     border: 2px solid #EEE;
     box-shadow: 0 0 5px aqua;
     
+}
+.index{
+    text-align: left;
 }
 
 /*登陆*/

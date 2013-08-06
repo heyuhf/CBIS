@@ -3,25 +3,20 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'shop.label', default: 'Shop')}" />
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#show-shop" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
+		<div class="index">
+			店铺管理-》店铺查看
 		</div>
 		<div id="show-shop" class="content scaffold-show" role="main">
-			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
+			<h1>店铺状态</h1>
 			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
+                          <div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<ol class="property-list shop">
+                        <div class="shopLogo"><img src="../../${shopInstance?.shopLogoUrl}" height="175" width="175"/></div>
+			<ul class="property-list shop">
 			
 				<g:if test="${shopInstance?.shopName}">
 				<li class="fieldcontain">
@@ -76,7 +71,7 @@
 				<li class="fieldcontain">
 					<span id="shopLogoUrl-label" class="property-label"><g:message code="shop.shopLogoUrl.label" default="Shop Logo Url" /></span>
 					
-                                        <span class="property-value" aria-labelledby="shopLogoUrl-label"><img src="../../uploads/shopLogo/${shopInstance.shopName}_Logo.jpg"/></span>
+						<span class="property-value" aria-labelledby="shopLogoUrl-label"><g:fieldValue bean="${shopInstance}" field="shopLogoUrl"/></span>
 					
 				</li>
 				</g:if>
@@ -91,24 +86,10 @@
 					
 				</li>
 				</g:if>
+                                
 			
-				<g:if test="${shopInstance?.user}">
-				<li class="fieldcontain">
-					<span id="user-label" class="property-label"><g:message code="shop.user.label" default="User" /></span>
-					
-						<span class="property-value" aria-labelledby="user-label"><g:link controller="user" action="show" id="${shopInstance?.user?.id}">${shopInstance?.user?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
+			</ul>
 			
-			</ol>
-			<g:form>
-				<fieldset class="buttons">
-					<g:hiddenField name="id" value="${shopInstance?.id}" />
-					<g:link class="edit" action="edit" id="${shopInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-				</fieldset>
-			</g:form>
 		</div>
 	</body>
 </html>

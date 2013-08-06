@@ -1,6 +1,7 @@
 package cbis
 
 import org.springframework.dao.DataIntegrityViolationException
+import java.text.SimpleDateFormat
 
 class ShopController {
 
@@ -18,7 +19,39 @@ class ShopController {
     def create() {
         [shopInstance: new Shop(params)]
     }
+    
+    
+    def save() {
+        
+        def file=request.getFile('shopLogo')
+        if(!file.empty){
+            def fileName=file.getOriginalFilename()
+            def timeFormat=new SimpleDateFormat("yyyyMMddHHmmss")
+            def time=timeFormat.format(new Date())
+            def random=new Random()
+            def rand=random.nextInt(1000)
+            def filetype=fileName.substring(fileName.indexOf(".")+1)
+            def filepath=new File("web-app/uploads/shopLogo/${time}${rand}.${filetype}")
+            filepath.mkdirs()
+            params.shopLogoUrl="uploads/shopLogo/${time}${rand}.${filetype}"
+            file.transferTo(filepath)
+        }
+        def user=User.findByUserName(session.userName)
+        if(!user){
+            render("请重新登录！")
+        }
+        //def user=new User(userName:'user',password:'123456',email:'user@cbis.com',phone:'1234567')
+        
+        def shopInstance = new Shop(shopName:params.shopName,address:params.address,user:user,description:params.description,shopLogoUrl:params.shopLogoUrl)
+        if (!shopInstance.save(flush: true)) {
+            render("保存失败"+params.shopName+params.address+params.description+params.shopLogoUrl)
+            return
+        }
 
+        flash.message = "店铺创建成功！"
+        render("店铺名："+ params.shopName)
+    }
+    /*原备份
     def save() {
         def shopInstance = new Shop(params)
         if (!shopInstance.save(flush: true)) {
@@ -28,7 +61,7 @@ class ShopController {
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'shop.label', default: 'Shop'), shopInstance.id])
         redirect(action: "show", id: shopInstance.id)
-    }
+    }*/
 
     def show(Long id) {
         def shopInstance = Shop.get(id)

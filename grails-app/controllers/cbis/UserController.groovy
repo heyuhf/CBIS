@@ -105,6 +105,21 @@ class UserController {
     }
     
     def frame_index(){
+        def user=User.findByUserName(session.userName)
+        def shoplist=Shop.findByUser(user)
+        def goodslist=Goods.findByUser(user)
+        if(!shoplist&&!goodslist){
+            [shopTotal: 0,goodsTotal:0]
+        }
+        else if(!shoplist&&goodslist){
+            [shopTotal: 0,goodsTotal:goodslist.count()]
+        }
+        else if(shoplist&&!goodslist){
+            [shopTotal: shoplist.count(),goodsTotal: 0]
+        }
+        else{
+            [shopTotal: shoplist.count(),goodsTotal:goodslist.count()]
+        }
         
     }
     
@@ -115,5 +130,32 @@ class UserController {
     def frame_shop(Integer max){
         params.max = Math.min(max ?: 10, 100)
         [shopInstanceList: Shop.list(params), shopInstanceTotal: Shop.count()]
+    }
+    
+    def frame_addshop(){
+        [shopInstance: new Shop(params)]
+    }
+    
+    def frame_addgoods(){
+        def user=User.findByUserName(session.userName)
+        def shop=Shop.findByUser(user)
+        if(!shop){
+            flash.message="您还没有创建店铺，请先创建店铺，再添加商品"
+        }
+        [shopInstance: new Goods(params)]
+    }
+    
+    def frame_goods(Integer max){
+        params.max = Math.min(max ?: 10, 100)
+        [goodsInstanceList: Goods.list(params), goodsInstanceTotal: Goods.count()]
+    }
+    
+    def frame_ads(Integer max){
+        params.max = Math.min(max ?: 10, 100)
+        [adInstanceList: Ad.list(params), adInstanceTotal: Ad.count()]
+    }
+    
+    def frame_addad(){
+        [adInstance: new Ad(params)]
     }
 }

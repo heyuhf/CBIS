@@ -6,11 +6,20 @@
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 
-<html xmlns="http://www.w3.org/1999/xhtml>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>用户首页</title>
-    <link rel="stylesheet" href="/CBIS/css/style.css" type="text/css">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>用户首页</title>
+      <link rel="stylesheet" href="/CBIS/css/style.css" type="text/css">
+      
+      <script type="text/javascript" language="javascript">
+        function iFrameHeight() { 
+          var ifm= document.getElementById("iframepage"); 
+          var height = ifm.contentWindow.document.documentElement.scrollHeight; 
+          ifm.height = height;
+        } 
+
+      </script>
   </head>
   <body>
     <div id="wrap">
@@ -39,8 +48,11 @@
               <li><span style="cursor: pointer;"><img src="/CBIS/images/add.png"/></span><a href="frame_shop" target="content_right">店铺管理</a></li>
               <li><a href="frame_shop" target="content_right">店铺列表</a></li>
               <li><a href="frame_addshop" target="content_right">添加店铺</a></li>
-              <li>商品管理</li>
-              <li>广告管理</li>
+              <li><span style="cursor: pointer;"><img src="/CBIS/images/add.png"/></span><a href="frame_goods" target="content_right">商品管理</a></li>
+              <li><a href="frame_addgoods" target="content_right">添加商品</a></li>
+              <li><span style="cursor: pointer;"><img src="/CBIS/images/add.png"/></span>广告管理</li>
+              <li><a href="frame_ads" target="content_right">广告列表</a></li>
+              <li><a href="frame_addad" target="content_right">添加广告</a></li>
               
             </ul>
           </div>
@@ -49,7 +61,7 @@
         
         </div>
         <div id="content_right">
-          <iframe name="content_right" src="frame_index" width="672"  frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes">
+          <iframe id="iframepage" name="content_right" src="frame_index" width="672"  frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes" onLoad="iFrameHeight()">
           </iframe>
         
         

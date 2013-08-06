@@ -1,17 +1,17 @@
 package cbis
 
 class Goods {
-    String goodName
+    String goodsName
     String description
     BigDecimal price
     BigDecimal onsalePrice
     String onsale
-    String[] goodPicUrls
+    String goodsPicUrls
+    User user
     Shop shop
-    static belongsTo=Shop
     static hasMany=[goodsTags:GoodsTag]
     static constraints = {
-        goodName(size:2..10,blank:false)
+        goodsName(size:2..15,blank:false)
         price(blank:false)
         description(maxsize:10000)
         onsalePrice(blank:true)

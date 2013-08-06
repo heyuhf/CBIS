@@ -11,6 +11,17 @@
     <title>Sample title</title>
   </head>
   <body>
-    <h1>Frame index</h1>
+    <div>商家管理首页</div>
+    <table>
+      <tr>
+        <td>当前您拥有店铺${shopTotal}家</td>
+      </tr>
+      <tr>
+        <td>您总共有${goodsTotal}件商品</td>
+      </tr>
+    
+      
+      
+    </table>
   </body>
 </html>
