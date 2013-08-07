@@ -22,11 +22,12 @@ class GoodsController {
     
     def save() {
         
+        params.goodsPicUrls=""
+        
         def user=User.findByUserName(session.userName)
-        def shop=Shop.get(params.shop.id)
-        params.goodsPicUrls="ppp"
-        if(!shop){
-            render("shop 不存在")
+        if(!user){
+            redirect(controller:"user",action:"login")
+            return
         }
         
         def file=request.getFile('goodsPic')
@@ -43,15 +44,27 @@ class GoodsController {
             file.transferTo(filepath)
         }
         
-        
-        def goodsInstance = new Goods(goodsName:params.goodsName,description:params.description,price:params.price,onsalePrice:0,onsale:"false",goodsPicUrls:params.goodsPicUrls,user:user,shop:shop)
-        if (!goodsInstance.save(flush: true)) {
+        int i=0
+        println("==="+params.shopsCheck)
+        for(i=0;i<params.shopsCheck.size();i++){
+            println("shop"+params.shopsCheck[i])
+            def shop=Shop.get(params.shopsCheck[i])
+            if(!shop){
+                render("error")
+                return
+            }
+            def goodsInstance = new Goods(goodsName:params.goodsName,description:params.description,price:params.price,onsalePrice:0,onsale:"false",goodsPicUrls:params.goodsPicUrls,user:user,shop:shop)
+            if (!goodsInstance.save(flush: true)) {
             render("保存失败")
             return
         }
-
-        flash.message = message(code: 'default.created.message', args: [message(code: 'goods.label', default: 'Goods'), goodsInstance.id])
-        render("保存成功:"+params.goodsName)
+            
+        }
+        
+      
+        flash.message = "保存成功"
+        render("保存成功:"+params.goodsName+"已经添加到"+params.shopsCheck.size()+"个店铺")
+        
     }
     
     /*原始备份

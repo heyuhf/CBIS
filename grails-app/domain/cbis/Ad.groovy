@@ -4,7 +4,7 @@ class Ad {
     String title
     Date date
     String content
-    static belongsTo=Shop
+    static belongsTo=[shop:Shop]
     static constraints = {
     }
 }

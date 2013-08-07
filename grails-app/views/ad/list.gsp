@@ -28,6 +28,8 @@
 					
 						<g:sortableColumn property="date" title="${message(code: 'ad.date.label', default: 'Date')}" />
 					
+						<th><g:message code="ad.shop.label" default="Shop" /></th>
+					
 						<g:sortableColumn property="title" title="${message(code: 'ad.title.label', default: 'Title')}" />
 					
 					</tr>
@@ -39,6 +41,8 @@
 						<td><g:link action="show" id="${adInstance.id}">${fieldValue(bean: adInstance, field: "content")}</g:link></td>
 					
 						<td><g:formatDate date="${adInstance.date}" /></td>
+					
+						<td>${fieldValue(bean: adInstance, field: "shop")}</td>
 					
 						<td>${fieldValue(bean: adInstance, field: "title")}</td>
 					

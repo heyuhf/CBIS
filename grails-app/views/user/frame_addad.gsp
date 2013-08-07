@@ -22,7 +22,7 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form action="save" >
+			<g:form controller="ad" action="save" >
 				<fieldset class="form">
                                   
                                   <div class="fieldcontain ${hasErrors(bean: adInstance, field: 'title', 'error')} ">
@@ -33,7 +33,8 @@
 	<g:textField name="title" value="${adInstance?.title}"/>
 </div>
                                   
-					<div class="fieldcontain ${hasErrors(bean: adInstance, field: 'content', 'error')} ">
+                                  
+                                  <div class="fieldcontain ${hasErrors(bean: adInstance, field: 'content', 'error')} ">
 	<label for="content">
 		<g:message code="ad.content.label" default="Content" />
 		
@@ -48,6 +49,16 @@
 	</label>
 	<g:datePicker name="date" precision="day"  value="${adInstance?.date}"  />
 </div>
+
+<div class="fieldcontain ${hasErrors(bean: adInstance, field: 'shop', 'error')} required">
+	<label for="shop">
+		<g:message code="ad.shop.label" default="Shop" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:select id="shop" name="shop.id" from="${cbis.Shop.list()}" optionKey="id" required="" value="${adInstance?.shop?.id}" class="many-to-one"/>
+</div>
+
+
 
 
 				</fieldset>

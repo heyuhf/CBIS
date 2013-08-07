@@ -63,9 +63,33 @@ body{
     box-shadow: 0 0 5px aqua;
     
 }
+
+.frame_account{
+    text-align: left;
+
+}
+ .frame_shop {
+    text-align: left;
+
+}
+ .frame_addshop {
+    text-align: left;
+
+}
+ .frame_goods{
+    text-align: left;
+
+}
+
 .index{
     text-align: left;
+    color: green;
 }
+
+.index a{
+    color: green;
+}
+
 
 /*登陆*/
 .login_box{

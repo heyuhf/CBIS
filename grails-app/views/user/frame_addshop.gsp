@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Sample title</title>
-    
+    <link rel="stylesheet" href="/CBIS/css/style.css" type="text/css">
     <script type="text/javascript"  src="../js/jquery-2.0.3.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
@@ -20,6 +20,7 @@
     
   </head>
   <body>
+    <div class="frame_addshop">
     <div class="index">店铺管理-》添加店铺</div>
     <g:if test="${flash.message}">
       <div class="message">${flash.message}</div>
@@ -52,6 +53,6 @@
   
   
   
-    
+    </div>
   </body>
 </html>

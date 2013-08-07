@@ -2,21 +2,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
+                <link rel="stylesheet" href="/CBIS/css/style.css" type="text/css">
 	</head>
 	<body>
-		<a href="#edit-user" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
 		<div id="edit-user" class="content scaffold-edit" role="main">
-			<h1><g:message code="default.edit.label" args="[entityName]" /></h1>
+                  <div class="index"><g:link class="index" action="frame_account">账号管理</g:link>-》修改联系方式</div>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -31,11 +22,39 @@
 				<g:hiddenField name="id" value="${userInstance?.id}" />
 				<g:hiddenField name="version" value="${userInstance?.version}" />
 				<fieldset class="form">
-					<g:render template="form"/>
+                                  
+					<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'userName', 'error')} required">
+	<label for="userName">
+		<g:message code="user.userName.label" default="User Name" />
+	</label>
+	<g:textField name="userName" maxlength="10" required="" disabled="true" value="${userInstance?.userName}"  />
+</div>
+
+
+
+<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'email', 'error')} required">
+	<label for="email">
+		<g:message code="user.email.label" default="Email" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:field type="email" name="email" required="" value="${userInstance?.email}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'phoneNumber', 'error')} required">
+	<label for="phoneNumber">
+		<g:message code="user.phoneNumber.label" default="Phone Number" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:textField name="phoneNumber" pattern="${userInstance.constraints.phoneNumber.matches}" required="" value="${userInstance?.phoneNumber}"/>
+</div>
+
+
+	
+
+
 				</fieldset>
 				<fieldset class="buttons">
-					<g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" formnovalidate="" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+					<g:actionSubmit class="save" action="update" value="提交" />
 				</fieldset>
 			</g:form>
 		</div>

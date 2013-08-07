@@ -63,16 +63,23 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: goodsInstance, field: 'shop', 'error')} required">
-	<label for="shop">
-		<g:message code="goods.shop.label" default="店铺选择" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="shop" name="shop.id" from="${cbis.Shop.list()}" optionKey="id" required="" value="${goodsInstance?.shop?.id}" class="many-to-one"/>
-</div>
+
 
 
 				</fieldset>
+                          
+                          <fieldset>
+                            <div >将商品添加到以下店铺</div>
+                            <g:each in="${shopInstanceList}" status="i" var="shopInstance">
+                              <div><label>${shopInstance.shopName}</label>
+                                <input type="checkbox" name="shopsCheck" value="${shopInstance.id}">
+                              </div>
+                            </g:each>
+                            
+                            
+                          </fieldset>
+                          
+                          
 				<fieldset class="buttons">
 					<g:submitButton name="create" class="save" value="提交" />
 				</fieldset>

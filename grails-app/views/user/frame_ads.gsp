@@ -32,7 +32,7 @@
 				<g:each in="${adInstanceList}" status="i" var="adInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${adInstance.id}">${fieldValue(bean: adInstance, field: "content")}</g:link></td>
+						<td><g:link controller="ad" action="show" id="${adInstance.id}">${fieldValue(bean: adInstance, field: "content")}</g:link></td>
 					
 						<td><g:formatDate date="${adInstance.date}" /></td>
 					

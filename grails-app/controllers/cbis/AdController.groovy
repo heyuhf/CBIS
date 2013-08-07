@@ -20,6 +20,7 @@ class AdController {
     }
 
     def save() {
+        
         def adInstance = new Ad(params)
         if (!adInstance.save(flush: true)) {
             render(view: "create", model: [adInstance: adInstance])
@@ -29,7 +30,20 @@ class AdController {
         flash.message = message(code: 'default.created.message', args: [message(code: 'ad.label', default: 'Ad'), adInstance.id])
         redirect(action: "show", id: adInstance.id)
     }
+    
+    /*原备份
+    def save() {
+        def adInstance = new Ad(params)
+        if (!adInstance.save(flush: true)) {
+            render(view: "create", model: [adInstance: adInstance])
+            return
+        }
 
+        flash.message = message(code: 'default.created.message', args: [message(code: 'ad.label', default: 'Ad'), adInstance.id])
+        redirect(action: "show", id: adInstance.id)
+    }
+    */
+   
     def show(Long id) {
         def adInstance = Ad.get(id)
         if (!adInstance) {

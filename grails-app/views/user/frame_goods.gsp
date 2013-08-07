@@ -9,9 +9,10 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Sample title</title>
+    <link rel="stylesheet" href="/CBIS/css/style.css" type="text/css">
   </head>
   <body>
-    <div>商品管理-》商品列表</div>
+    <div class="index">商品管理-》商品列表</div>
       <g:if test="${flash.message}">
       <div class="message" role="status">${flash.message}</div>
       </g:if>

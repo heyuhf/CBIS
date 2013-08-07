@@ -52,11 +52,63 @@ class UserController {
         [userInstance: userInstance]
     }
 
-    def update(Long id, Long version) {
+    def edit2(Long id) {
         def userInstance = User.get(id)
         if (!userInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), id])
             redirect(action: "list")
+            return
+        }
+
+        [userInstance: userInstance]
+    }
+    
+    def updatepassword(Long id, Long version) {
+        def userInstance = User.findByUserName(session.userName)
+        if (!userInstance) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), id])
+            redirect(action: "login")
+            return
+        }
+
+        if (version != null) {
+            if (userInstance.version > version) {
+                userInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
+                          [message(code: 'user.label', default: 'User')] as Object[],
+                          "Another user has updated this User while you were editing")
+                render(view: "edit", model: [userInstance: userInstance])
+                return
+            }
+        }
+        
+        if(params.password0!=userInstance.password){
+            render("您输入的旧密码错误")
+            return
+        }
+        
+        if(params.password!=params.password2){
+            render("两次密码不一致")
+            return
+        }
+
+        //userInstance.properties = params
+        userInstance.password=params.password
+
+        if (!userInstance.save(flush: true)) {
+            render(view: "edit", model: [userInstance: userInstance])
+            return
+        }
+
+        flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
+        redirect(action: "frame_account")
+    }
+    
+    
+    def update(Long id, Long version) {
+        def userInstance = User.findByUserName(session.userName)
+        if (!userInstance) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), id])
+            redirect(action: "login")
             return
         }
 
@@ -70,7 +122,9 @@ class UserController {
             }
         }
 
-        userInstance.properties = params
+        //userInstance.properties = params
+        userInstance.email=params.email
+        userInstance.phoneNumber=params.phoneNumber
 
         if (!userInstance.save(flush: true)) {
             render(view: "edit", model: [userInstance: userInstance])
@@ -78,7 +132,7 @@ class UserController {
         }
 
         flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
-        redirect(action: "show", id: userInstance.id)
+        redirect(action: "frame_account")
     }
 
     def delete(Long id) {
@@ -124,12 +178,28 @@ class UserController {
     }
     
     def frame_account(){
-        
+        def userInstance = User.findByUserName(session.userName)
+        if (!userInstance) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), id])
+            redirect(action: "login")
+            return
+        }
+
+        [userInstance: userInstance]
     }
     
     def frame_shop(Integer max){
-        params.max = Math.min(max ?: 10, 100)
-        [shopInstanceList: Shop.list(params), shopInstanceTotal: Shop.count()]
+        def user=User.findByUserName(session.userName)
+        def shoplist=Shop.findAllByUser(user)
+        if(shoplist){
+            params.max = Math.min(max ?: 10, 100)
+            [shopInstanceList: shoplist, shopInstanceTotal: shoplist.size()]
+        }
+        else{
+            params.max = Math.min(max ?: 10, 100)
+            [shopInstanceList: shoplist, shopInstanceTotal: shoplist.size()]
+        }
+        
     }
     
     def frame_addshop(){
@@ -138,11 +208,17 @@ class UserController {
     
     def frame_addgoods(){
         def user=User.findByUserName(session.userName)
+        if(!user){
+            flash.message="您的登录已失效，请重新登录！"
+            redirect(action:"login")
+            return
+        }
         def shop=Shop.findByUser(user)
         if(!shop){
             flash.message="您还没有创建店铺，请先创建店铺，再添加商品"
         }
-        [shopInstance: new Goods(params)]
+        def shopInstanceList=user.shops
+        [goodsInstance: new Goods(params),shopInstanceList:shopInstanceList]
     }
     
     def frame_goods(Integer max){

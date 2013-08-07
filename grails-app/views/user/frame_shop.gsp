@@ -9,6 +9,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Sample title</title>
+    <link rel="stylesheet" href="/CBIS/css/style.css" type="text/css">
   </head>
   <body>
     
