@@ -43,7 +43,7 @@
           <div class="list_title">用户功能列表页</div>
           <div class="list_content">
             <ul>
-              <li><a href="frame_index" target="content_right">首页</a></li>
+              <li><a href="index">首页</a></li>
               <li><a href="frame_account" target="content_right">账号管理</a></li>
               <li><span style="cursor: pointer;"><img src="/CBIS/images/add.png"/></span><a href="frame_shop" target="content_right">店铺管理</a></li>
               <li><a href="frame_shop" target="content_right">店铺列表</a></li>

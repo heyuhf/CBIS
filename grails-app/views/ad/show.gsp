@@ -4,6 +4,7 @@
 <html>
 	<head>
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
+                <link rel="stylesheet" href="/CBIS/css/style.css" type="text/css">
 	</head>
 	<body>
 		

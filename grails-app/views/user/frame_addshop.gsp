@@ -8,10 +8,10 @@
     <script type="text/javascript"  src="../js/jquery-2.0.3.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
-        
+        //alert("ss");
       });
       function uploadShopLogo(){
-        alert($("#localShopLogo").val());
+        //alert($("#localShopLogo").val());
       }
 
       
@@ -29,7 +29,7 @@
       <fieldset>
       <div class="">
         <label for="shopName">店铺名</label>
-        <g:textField name="shopName" maxlength="20" required="" value="${shopInstance?.shopName}"/>
+        <g:textField name="shopName" maxlength="20" required="" value=""/>
       </div>
       <div class="">
         <label for="shopLogo">店铺图片</label>
@@ -38,11 +38,17 @@
       </div>
       <div class="">
         <label for="address">店铺地址</label>
-        <g:textField name="address" maxlength="20" required="" value="${shopInstance?.shopName}"/>
+        <g:textField name="address" maxlength="20" required="" value=""/>
       </div>
+        
+      <div class="">
+        <label for="shoptags">店铺标签</label>
+        <g:textField name="shoptags" maxlength="20" required="" value=""/>
+      </div>
+        
       <div class="">
         <label for="description">店铺描述</label>
-        <g:textField name="description" maxlength="20" value="${shopInstance?.shopName}"/>
+        <g:textField name="description" maxlength="20" value=""/>
       </div>
       </fieldset>
       <fieldset>

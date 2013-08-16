@@ -92,7 +92,7 @@ log4j = {
 
 
 ckeditor {
-	config = "/js/myckconfig.js"
+	//config = "/js/myckconfig.js"
         skipAllowedItemsCheck = false
 	defaultFileBrowser = "ofm"
 	upload {

@@ -1,6 +1,8 @@
 package cbis
 
 import org.springframework.dao.DataIntegrityViolationException
+import cbis.Unit
+
 
 class UserController {
 
@@ -41,8 +43,8 @@ class UserController {
         [userInstance: userInstance]
     }
 
-    def edit(Long id) {
-        def userInstance = User.get(id)
+    def edit() {
+        def userInstance = User.findByUserName(session.userName)
         if (!userInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), id])
             redirect(action: "list")
@@ -52,8 +54,8 @@ class UserController {
         [userInstance: userInstance]
     }
 
-    def edit2(Long id) {
-        def userInstance = User.get(id)
+    def edit2() {
+        def userInstance = User.findByUserName(session.userName)
         if (!userInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), id])
             redirect(action: "list")
@@ -190,14 +192,15 @@ class UserController {
     
     def frame_shop(Integer max){
         def user=User.findByUserName(session.userName)
-        def shoplist=Shop.findAllByUser(user)
+        def shoptotal=Shop.findAllByUser(user)
+        def shoplist=Shop.findAllByUser(user,[max:10, offset:params.offset])
         if(shoplist){
             params.max = Math.min(max ?: 10, 100)
-            [shopInstanceList: shoplist, shopInstanceTotal: shoplist.size()]
+            [shopInstanceList: shoplist, shopInstanceTotal: shoptotal.size()]
         }
         else{
             params.max = Math.min(max ?: 10, 100)
-            [shopInstanceList: shoplist, shopInstanceTotal: shoplist.size()]
+            [shopInstanceList: shoplist, shopInstanceTotal: shoptotal.size()]
         }
         
     }
@@ -207,6 +210,7 @@ class UserController {
     }
     
     def frame_addgoods(){
+        
         def user=User.findByUserName(session.userName)
         if(!user){
             flash.message="您的登录已失效，请重新登录！"
@@ -218,7 +222,9 @@ class UserController {
             flash.message="您还没有创建店铺，请先创建店铺，再添加商品"
         }
         def shopInstanceList=user.shops
-        [goodsInstance: new Goods(params),shopInstanceList:shopInstanceList]
+        
+        List<String> unitlist=Arrays.asList(Unit.values())
+        [goodsInstance: new Goods(params),shopInstanceList:shopInstanceList,unitlist:unitlist]
     }
     
     def frame_goods(Integer max){
@@ -227,11 +233,33 @@ class UserController {
     }
     
     def frame_ads(Integer max){
+        def user=User.findByUserName(session.userName)
+        if(!user){
+            flash.message="您的登录已失效，请重新登录！"
+            redirect(action:"login")
+            return
+        }
+        def adlist
+        
+        if(params.shopid){
+            def shop=Shop.get(params.shopid)
+            println(shop.shopName)
+            adlist=Ad.findAllByShop(shop)
+        }else{
+            adlist=Ad.findAllByUser(user)
+            
+        }
+        def shoplist=Shop.findAllByUser(user)
+        
+        
+        
+        
         params.max = Math.min(max ?: 10, 100)
-        [adInstanceList: Ad.list(params), adInstanceTotal: Ad.count()]
+        [adInstanceList: adlist, adInstanceTotal: Ad.count(),shopInstanceList:shoplist]
     }
     
     def frame_addad(){
+        
         [adInstance: new Ad(params)]
     }
 }

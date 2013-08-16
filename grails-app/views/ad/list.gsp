@@ -28,6 +28,10 @@
 					
 						<g:sortableColumn property="date" title="${message(code: 'ad.date.label', default: 'Date')}" />
 					
+						<g:sortableColumn property="deadline" title="${message(code: 'ad.deadline.label', default: 'Deadline')}" />
+					
+						<g:sortableColumn property="hasEnd" title="${message(code: 'ad.hasEnd.label', default: 'Has End')}" />
+					
 						<th><g:message code="ad.shop.label" default="Shop" /></th>
 					
 						<g:sortableColumn property="title" title="${message(code: 'ad.title.label', default: 'Title')}" />
@@ -41,6 +45,10 @@
 						<td><g:link action="show" id="${adInstance.id}">${fieldValue(bean: adInstance, field: "content")}</g:link></td>
 					
 						<td><g:formatDate date="${adInstance.date}" /></td>
+					
+						<td><g:formatDate date="${adInstance.deadline}" /></td>
+					
+						<td><g:formatBoolean boolean="${adInstance.hasEnd}" /></td>
 					
 						<td>${fieldValue(bean: adInstance, field: "shop")}</td>
 					

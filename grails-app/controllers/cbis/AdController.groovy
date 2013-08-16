@@ -1,6 +1,7 @@
 package cbis
 
 import org.springframework.dao.DataIntegrityViolationException
+import java.text.SimpleDateFormat
 
 class AdController {
 
@@ -20,13 +21,40 @@ class AdController {
     }
 
     def save() {
+        def user=User.findByUserName(session.userName)
+        if(!user){
+            flash.message="您的登录已失效，请重新登录！"
+            redirect(action:"login")
+            return
+        }
+        params.user=user
+        Date datetime=new Date()
+        params.hasEnd="on"
+        params.date=datetime
+        Calendar calendar=Calendar.getInstance()
+        calendar.setTime(datetime)
+        println(params.limit_num)
+        println(params.limit_unit)
+        if(params.limit_unit=="1"){
+            calendar.add(Calendar.DAY_OF_MONTH,Integer.parseInt(params.limit_num))
+        }else if(params.limit_unit=="2"){
+            calendar.add(Calendar.DAY_OF_MONTH,(Integer.parseInt(params.limit_num))*7)
+        }else if(params.limit_unit=="3"){
+            calendar.add(Calendar.MONTH, Integer.parseInt(params.limit_num))
+        }else if(params.limit_unit=="4"){
+            calendar.add(Calendar.YEAR, Integer.parseInt(params.limit_num))
+        }else if(params.limit_unit=="5"){
+            params.hasEnd=false
+        }
         
+        params.deadline=calendar.getTime()
+        println(params.deadline)
         def adInstance = new Ad(params)
         if (!adInstance.save(flush: true)) {
             render(view: "create", model: [adInstance: adInstance])
             return
         }
-
+        
         flash.message = message(code: 'default.created.message', args: [message(code: 'ad.label', default: 'Ad'), adInstance.id])
         redirect(action: "show", id: adInstance.id)
     }

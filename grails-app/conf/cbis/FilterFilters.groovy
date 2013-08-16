@@ -4,11 +4,11 @@ class FilterFilters {
 
     def filters = {
         
-        login(controller:'user',action:'index'){
+        login(controller:'user',action:'*'){
             before={
                 if(!session.user){
                     flash.message="请先登录"
-                    redirect(controller:"user",action:"login")
+                    redirect(uri:"/")
                 }
             }
         }

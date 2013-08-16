@@ -23,7 +23,7 @@
         <tr>
           <g:sortableColumn property="shopName" title="店铺名" />
           
-          <g:sortableColumn property="address" title="${message(code: 'shop.address.label', default: 'Address')}" />
+          <g:sortableColumn property="address" title="${message(code: 'shop.address.label', default: '店铺地址')}" />
 					
           <g:sortableColumn property="description" title="描述" />
 					
@@ -45,7 +45,7 @@
 					
               <td>${fieldValue(bean: shopInstance, field: "shopLogoUrl")}</td>
               
-              <td>编辑/删除</td>
+              <td><g:link controller="shop" action="edit" id="${shopInstance.id}">编辑</g:link>/<g:link controller="shop" action="edit" id="${shopInstance.id}">删除</g:link></td>
 					
             </tr>
           </g:each>

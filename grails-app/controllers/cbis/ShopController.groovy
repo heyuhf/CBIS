@@ -47,9 +47,23 @@ class ShopController {
             render("保存失败"+params.shopName+params.address+params.description+params.shopLogoUrl)
             return
         }
+        def shoptagnames=params.shoptags.split(",|，")
+        shoptagnames.each{
+            def  shopTagInstance=ShopTag.findByTagName(it)
+            if(!shopTagInstance){
+                shopTagInstance=new ShopTag(tagName:it)
+                if (!shopTagInstance.save(flush: true)) {
+                        response.sendError(405)
+                        return
+                }
+            }
+            shopInstance.addToShopTags(shopTagInstance)
+        }
 
         flash.message = "店铺创建成功！"
-        render("店铺名："+ params.shopName)
+        flash.shopname=shopInstance.shopName
+        redirect(action:"success",id:shopInstance.id)
+        
     }
     /*原备份
     def save() {
@@ -70,12 +84,19 @@ class ShopController {
             redirect(action: "list")
             return
         }
+        
+        
 
         [shopInstance: shopInstance]
     }
 
     def edit(Long id) {
         def shopInstance = Shop.get(id)
+        if(shopInstance.user.userName!=session.userName){
+            flash.message="您不能编辑不属于自己的店铺"
+            redirect(controller:"user",action:"frame_shop")
+            return
+        }
         if (!shopInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'shop.label', default: 'Shop'), id])
             redirect(action: "list")
@@ -132,4 +153,10 @@ class ShopController {
             redirect(action: "show", id: id)
         }
     }
+    
+    def success(Long id){
+        def shopInstance=Shop.get(id)
+        [shopInstance:shopInstance]
+    }
+    
 }

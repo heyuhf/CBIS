@@ -4,11 +4,12 @@
 <html>
 	<head>
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
+                <link rel="stylesheet" href="/CBIS/css/style.css" type="text/css">
 	</head>
 	<body>
 		
 		<div id="show-goods" class="content scaffold-show" role="main">
-                  <div class="index">商品展示</div>
+                  <div class="index">商品管理-》商品信息</div>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -38,6 +39,22 @@
 					
 				</li>
 				</g:if>
+                                
+                               <g:if test="${goodsInstance?.goodsTags}">
+				<li class="fieldcontain">
+					<span id="" class="">商品标签</span>
+					
+						<g:each in="${goodsInstance.goodsTags}" var="s" status="i">
+                                                  
+                                                  <span class="">${s?.tagName},</span>
+						</g:each>
+                                        <span id="addGoodsTagsDiv"></span>
+                                        <span id="buttonAdd"><a href="#" onclick="addGoodsTags()">添加</a></span>
+                                        
+					
+				</li>
+				</g:if>
+                          
                           
 				<g:if test="${goodsInstance?.description}">
 				<li class="fieldcontain">
@@ -66,8 +83,8 @@
 			<g:form>
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${goodsInstance?.id}" />
-					<g:link class="edit" action="edit" id="${goodsInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+					<g:link class="edit" action="edit" id="${goodsInstance?.id}">编辑</g:link>
+					<g:actionSubmit class="delete" action="delete" value="删除" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>
 		</div>

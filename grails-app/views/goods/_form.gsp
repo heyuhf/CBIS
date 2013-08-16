@@ -2,12 +2,12 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: goodsInstance, field: 'goodName', 'error')} required">
-	<label for="goodName">
-		<g:message code="goods.goodName.label" default="Good Name" />
+<div class="fieldcontain ${hasErrors(bean: goodsInstance, field: 'goodsName', 'error')} required">
+	<label for="goodsName">
+		<g:message code="goods.goodsName.label" default="Goods Name" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:textField name="goodName" maxlength="10" required="" value="${goodsInstance?.goodName}"/>
+	<g:textField name="goodsName" maxlength="10" required="" value="${goodsInstance?.goodsName}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: goodsInstance, field: 'price', 'error')} required">

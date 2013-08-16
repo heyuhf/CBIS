@@ -30,12 +30,12 @@
 
 <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'password', 'error')} required">
 	<label for="password">新密码</label>
-	<g:textField name="password" maxlength="30" required="" value="${userInstance?.password}"/>
+	<g:textField name="password" maxlength="30" required="" value=""/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'password', 'error')} required">
 	<label for="password2">重复新密码</label>
-	<g:textField name="password2" maxlength="30" required="" value="${userInstance?.password}"/>
+	<g:textField name="password2" maxlength="30" required="" value=""/>
 </div>
 
 

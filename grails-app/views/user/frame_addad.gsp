@@ -9,6 +9,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Sample title</title>
+    <link rel="stylesheet" href="/CBIS/css/style.css" type="text/css">
+    <ckeditor:resources/>
+
   </head>
   <body>
     <div class="index">广告管理-》添加广告</div>
@@ -27,32 +30,53 @@
                                   
                                   <div class="fieldcontain ${hasErrors(bean: adInstance, field: 'title', 'error')} ">
 	<label for="title">
-		<g:message code="ad.title.label" default="Title" />
+		<g:message code="ad.title.label" default="标题" />
 		
 	</label>
 	<g:textField name="title" value="${adInstance?.title}"/>
 </div>
                                   
+                             
+                               <div class="">
+                                  <label for="limit">广告有效时间</label>
+                                  <select name="limit_num">
+                                    <option value ="1">1</option>
+                                    <option value ="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                  </select>
+                                  <select name="limit_unit">
+                                    <option value ="1">天</option>
+                                    <option value ="2">星期</option>
+                                    <option value="3">月</option>
+                                    <option value="4">年</option>
+                                    <option value="5">长期有效</option>
+                                  </select>
+
+                                  
+                                </div>   
+                                  
+                                  
+                                  
                                   
                                   <div class="fieldcontain ${hasErrors(bean: adInstance, field: 'content', 'error')} ">
 	<label for="content">
-		<g:message code="ad.content.label" default="Content" />
+		<g:message code="ad.content.label" default="内容" />
 		
 	</label>
-	<g:textField name="content" value="${adInstance?.content}"/>
+	
+        <ckeditor:editor name="content" height="300px" width="100%">
+        </ckeditor:editor>
+                                    
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: adInstance, field: 'date', 'error')} required">
-	<label for="date">
-		<g:message code="ad.date.label" default="Date" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:datePicker name="date" precision="day"  value="${adInstance?.date}"  />
-</div>
+
 
 <div class="fieldcontain ${hasErrors(bean: adInstance, field: 'shop', 'error')} required">
 	<label for="shop">
-		<g:message code="ad.shop.label" default="Shop" />
+		<g:message code="ad.shop.label" default="所属店铺" />
 		<span class="required-indicator">*</span>
 	</label>
 	<g:select id="shop" name="shop.id" from="${cbis.Shop.list()}" optionKey="id" required="" value="${adInstance?.shop?.id}" class="many-to-one"/>
@@ -65,6 +89,7 @@
 				<fieldset class="buttons">
 					<g:submitButton name="create" class="save" value="提交" />
 				</fieldset>
+                          <div  style="height:450px;"></div>
 			</g:form>
   </body>
 </html>

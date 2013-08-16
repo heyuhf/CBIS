@@ -25,11 +25,11 @@
 			</g:hasErrors>
 			<g:form controller="goods" action="save"  enctype="multipart/form-data">
                           <fieldset class="form">
-                            <div class="fieldcontain ${hasErrors(bean: goodsInstance, field: 'goodName', 'error')} required">
+                            <div class="fieldcontain ${hasErrors(bean: goodsInstance, field: 'goodsName', 'error')} required">
                               <label for="goodsName">
                               <g:message code="goods.goodsName.label" default="商品名称" />
                               </label>
-                              <g:textField name="goodsName" maxlength="10" required="" value="${goodsInstance?.goodsName}"/>
+                              <g:textField name="goodsName" maxlength="20" required="" value="${goodsInstance?.goodsName}"/>
                             </div>
 
                             <div class="fieldcontain ${hasErrors(bean: goodsInstance, field: 'price', 'error')} required">
@@ -39,12 +39,24 @@
                               <g:field name="price" value="${fieldValue(bean: goodsInstance, field: 'price')}" required=""/>
                             </div>
 
+                            <div class="">
+                              <label for="unit">
+                                <g:message code="goods.unit.label" default="单位" />
+                              </label>
+                              <g:select name="unit" from="${unitlist}" required="" value="${goodsInstance?.shop?.id}" class="many-to-one"/>
+                            </div>
+                            
                                   
                             <div class="fieldcontain ${hasErrors(bean: goodsInstance, field: 'goodPicUrls', 'error')} required">
                             <label for="goodsPicUrls">
                               <g:message code="goods.goodsPicUrls.label" default="商品图片" />
                             </label>
                             <input type="file" name="goodsPic"/>
+                            </div>
+                            
+                            <div class="">
+                              <label for="goodsTags">标签</label>
+                              <input name="goodsTags" type="text" />
                             </div>
                                   
 <div class="fieldcontain ${hasErrors(bean: goodsInstance, field: 'description', 'error')} ">

@@ -40,7 +40,7 @@
 					
 						<td><g:link controller="goods" action="show" id="${goodsInstance.id}">${fieldValue(bean: goodsInstance, field: "goodsName")}</g:link></td>
 					
-						<td>${fieldValue(bean: goodsInstance, field: "price")}</td>
+						<td>${fieldValue(bean: goodsInstance, field: "price")} 元/${goodsInstance.unit}</td>
 					
 						<td>${fieldValue(bean: goodsInstance, field: "description")}</td>
 					

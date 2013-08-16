@@ -45,7 +45,6 @@ class GoodsController {
         }
         
         int i=0
-        println("==="+params.shopsCheck)
         for(i=0;i<params.shopsCheck.size();i++){
             println("shop"+params.shopsCheck[i])
             def shop=Shop.get(params.shopsCheck[i])
@@ -53,13 +52,27 @@ class GoodsController {
                 render("error")
                 return
             }
-            def goodsInstance = new Goods(goodsName:params.goodsName,description:params.description,price:params.price,onsalePrice:0,onsale:"false",goodsPicUrls:params.goodsPicUrls,user:user,shop:shop)
+            def goodsInstance = new Goods(goodsName:params.goodsName,description:params.description,price:params.price,onsalePrice:0,onsale:"false",goodsPicUrls:params.goodsPicUrls,user:user,shop:shop,unit:params.unit)
             if (!goodsInstance.save(flush: true)) {
-            render("保存失败")
-            return
-        }
+                render("保存失败")
+                return
+            }
+            
+            def goodstagnames=params.goodsTags.split(",|，")
+            goodstagnames.each{
+                def  goodsTagInstance=GoodsTag.findByTagName(it)
+                if(!goodsTagInstance){
+                    goodsTagInstance=new GoodsTag(tagName:it)
+                    if (!goodsTagInstance.save(flush: true)) {
+                        response.sendError(405)
+                        return
+                    }
+                }
+                goodsInstance.addToGoodsTags(goodsTagInstance)
+            }
             
         }
+        
         
       
         flash.message = "保存成功"
@@ -146,7 +159,7 @@ class GoodsController {
         }
         catch (DataIntegrityViolationException e) {
             flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'goods.label', default: 'Goods'), id])
-            redirect(action: "show", id: id)
+            redirect(controller:"user",action: "frame_goods")
         }
     }
 }
