@@ -23,7 +23,61 @@
 				<g:hiddenField name="id" value="${goodsInstance?.id}" />
 				<g:hiddenField name="version" value="${goodsInstance?.version}" />
 				<fieldset class="form">
-					<g:render template="form"/>
+					
+                                  
+                                  
+                                  <div class="fieldcontain ${hasErrors(bean: goodsInstance, field: 'goodsName', 'error')} required">
+	<label for="goodsName">
+		<g:message code="goods.goodsName.label" default="Goods Name" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:textField name="goodsName" maxlength="10" required="" value="${goodsInstance?.goodsName}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: goodsInstance, field: 'price', 'error')} required">
+	<label for="price">
+		<g:message code="goods.price.label" default="Price" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:field name="price" value="${fieldValue(bean: goodsInstance, field: 'price')}" required=""/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: goodsInstance, field: 'description', 'error')} ">
+	<label for="description">
+		<g:message code="goods.description.label" default="Description" />
+		
+	</label>
+	<g:textField name="description" value="${goodsInstance?.description}"/>
+</div>
+
+
+
+
+
+<div class="fieldcontain ${hasErrors(bean: goodsInstance, field: 'goodsPicUrls', 'error')} ">
+	<label for="goodsPicUrls">
+		<g:message code="goods.goodsPicUrls.label" default="Goods Pic Urls" />
+		
+	</label>
+	<g:textField name="goodsPicUrls" value="${goodsInstance?.goodsPicUrls}"/>
+</div>
+
+
+
+<div class="fieldcontain ${hasErrors(bean: goodsInstance, field: 'shop', 'error')} required">
+	<label for="shop">
+		<g:message code="goods.shop.label" default="Shop" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:select id="shop" name="shop.id" from="${cbis.Shop.list()}" optionKey="id" required="" value="${goodsInstance?.shop?.id}" class="many-to-one"/>
+</div>
+
+
+                                  
+                                  
+                                  
+                                  
+                                  
 				</fieldset>
 				<fieldset class="buttons">
 					<g:actionSubmit class="save" action="update" value="提交" />

@@ -6,7 +6,7 @@
                 <link rel="stylesheet" href="/CBIS/css/style.css" type="text/css">
 	</head>
 	<body>
-		<div id="edit-user" class="content scaffold-edit" role="main">
+          <div class="frame_account">
                   <div class="index"><g:link class="index" action="frame_account">账号管理</g:link>-》修改联系方式</div>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
@@ -23,27 +23,26 @@
 				<g:hiddenField name="version" value="${userInstance?.version}" />
 				<fieldset class="form">
                                   
-					<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'userName', 'error')} required">
-	<label for="userName">
-		<g:message code="user.userName.label" default="User Name" />
-	</label>
-	<g:textField name="userName" maxlength="10" required="" disabled="true" value="${userInstance?.userName}"  />
-</div>
+                                <div>
+                                <label for="userName">
+                                <g:message code="user.userName.label" default="当前用户：" />
+                                </label>&nbsp;${userInstance?.userName}
+                                </div>
 
 
 
-<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'email', 'error')} required">
+<div>
 	<label for="email">
 		<g:message code="user.email.label" default="Email" />
-		<span class="required-indicator">*</span>
+		
 	</label>
 	<g:field type="email" name="email" required="" value="${userInstance?.email}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'phoneNumber', 'error')} required">
+<div>
 	<label for="phoneNumber">
 		<g:message code="user.phoneNumber.label" default="Phone Number" />
-		<span class="required-indicator">*</span>
+		
 	</label>
 	<g:textField name="phoneNumber" pattern="${userInstance.constraints.phoneNumber.matches}" required="" value="${userInstance?.phoneNumber}"/>
 </div>

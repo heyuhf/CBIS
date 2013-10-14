@@ -9,9 +9,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Sample title</title>
+    <link rel="stylesheet" href="/CBIS/css/style.css" type="text/css">
   </head>
   <body>
-    <div>商家管理首页</div>
+    
+    <div class="index">商家管理首页</div>
     <table>
       <tr>
         <td>当前您拥有店铺${shopTotal}家</td>

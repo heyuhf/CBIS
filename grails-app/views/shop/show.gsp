@@ -25,11 +25,32 @@
                     data:"name="+stringdata+"&shopid=${shopInstance.id}",
                     dataType:"text",
                     success:function(msg){
-                      $("<span>"+msg+"</span>").insertBefore("#addShopTagsDiv");
+                      
+                      var obj = JSON.parse(msg);
+                      var i=0;
+                      for(i=0;i<obj.tags.length;i++){
+                        $("<span id=\"tag_"+obj.tags[i].tagid+"\">"+obj.tags[i].tagName+"<a href=\"javascript:void(0)\" class=\"tagclose\" onclick=\"deltag("+obj.tags[i].tagid+","+obj.tags[i].tagid+","+${shopInstance.id}+")\">&nbsp;&nbsp;</a>，</span>").insertBefore("#addShopTagsDiv");
+                        
+                      }
+                      $("input[name='addShopTagsInput']").val("");
+                      
                     }
                   });
                    
                 }
+                
+                function deltag(tagid,tagnum,shopid){
+                    //$("#tag_"+tagnum).remove();
+                    $.post("/CBIS/Ajax/delshoptag",
+                      {
+                        tagid:tagid,
+                        shopid:shopid
+                      },
+                      function(msg){
+                        $("#tag_"+tagnum).remove();
+                      }).error(function(){alert("error");});
+                }
+                
                 
                 </script>
                 
@@ -38,12 +59,12 @@
 		<div class="index">
 			店铺管理-》<g:link controller="user" action="frame_shop">店铺列表</g:link>-》${shopInstance.shopName}
 		</div>
-		<div id="show-shop" class="content scaffold-show" role="main">
+          <div class="frame_account">
 			<g:if test="${flash.message}">
                           <div class="message" role="status">${flash.message}</div>
 			</g:if>
                         <div class="shopLogo"><img src="../../${shopInstance?.shopLogoUrl}" height="175" width="175"/></div>
-			<ul class="property-list shop">
+			<ul class="">
 			
 				<g:if test="${shopInstance?.shopName}">
 				<li class="fieldcontain">
@@ -85,37 +106,27 @@
 			
 				<g:if test="${shopInstance?.goods}">
 				<li class="fieldcontain">
-					<span id="goods-label" class="property-label"><g:message code="shop.goods.label" default="Goods" /></span>
-					
-						<g:each in="${shopInstance.goods}" var="g">
-						<span class="property-value" aria-labelledby="goods-label"><g:link controller="goods" action="show" id="${g.id}">${g?.encodeAsHTML()}</g:link></span>
-						</g:each>
+					<span id="goods-label" class="property-label"><g:message code="shop.goods.label" default="商品数量" /></span>
+					${shopInstance.goods.size()}<g:link controller="goods" action="goodslist" id="${shopInstance.id}">查看</g:link>
 					
 				</li>
 				</g:if>
 			
 				
 			
-				<g:if test="${shopInstance?.shopTags}">
+				
 				<li class="fieldcontain">
 					<span id="shopTags-label" class="property-label"><g:message code="shop.shopTags.label" default="店铺标签" /></span>
 					
 						<g:each in="${shopInstance.shopTags}" var="s" status="i">
                                                   
-                                                  <span class="">${s?.tagName},</span>
+                                                  <span id="tag_${s?.id}">${s?.tagName}<a href="javascript:void(0)" class="tagclose" onclick="deltag(${s?.id},${s?.id},${shopInstance.id})" id="tagclose_${s?.id}">&nbsp;&nbsp;</a>,</span>
 						</g:each>
                                         <span id="addShopTagsDiv"></span>
                                         <span id="buttonAdd">
-                                          <input type="button" onclick="addShopTags()" value="添加"/></span>
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-					
+                                          <input type="button" onclick="addShopTags()" value="添加"/></span>					
 				</li>
-				</g:if>
+				
                                 
 			
 			</ul>

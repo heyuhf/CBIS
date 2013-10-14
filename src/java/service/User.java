@@ -11,12 +11,12 @@ package service;
  */
 public class User {
     private String userName;
-    private String address;
+    private String emailaddress;
     private String phoneNumber;
 
-    public User(String userName,String address,String phoneNumber){
+    public User(String userName,String emailaddress,String phoneNumber){
         this.userName=userName;
-        this.address=address;
+        this.emailaddress=emailaddress;
         this.phoneNumber=phoneNumber;
     }
     
@@ -29,11 +29,11 @@ public class User {
     }
 
     public String getAddress() {
-        return address;
+        return emailaddress;
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        this.emailaddress = emailaddress;
     }
 
     public String getPhoneNumber() {

@@ -6,7 +6,7 @@
                 <link rel="stylesheet" href="/CBIS/css/style.css" type="text/css">
 	</head>
 	<body>
-		<div id="edit-user" class="content scaffold-edit" role="main">
+		<div class="frame_account">
                   <div class="index"><g:link action="frame_account" >账号管理</g:link>-》修改密码</div>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
@@ -25,17 +25,19 @@
                                   
 			<div class="">
                         <label for="password0">原密码</label>
-                        <g:textField name="password0" maxlength="30" required="" value=""/>
+                        <input type="password" name="password0" value="">
                         </div>		
 
-<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'password', 'error')} required">
+<div>
 	<label for="password">新密码</label>
-	<g:textField name="password" maxlength="30" required="" value=""/>
+	
+        <input type="password" name="password" required="">
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'password', 'error')} required">
+<div>
 	<label for="password2">重复新密码</label>
-	<g:textField name="password2" maxlength="30" required="" value=""/>
+	
+        <input type="password" name="password2" required="">
 </div>
 
 

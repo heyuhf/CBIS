@@ -29,7 +29,11 @@ class GoodsController {
             redirect(controller:"user",action:"login")
             return
         }
-        
+        def shophas=Shop.findByUser(user)
+        if(!shophas){
+            render("你还没有店铺。请先添加店铺")
+            return
+        }
         def file=request.getFile('goodsPic')
         if(!file.empty){
             def fileName=file.getOriginalFilename()
@@ -49,6 +53,9 @@ class GoodsController {
             println("shop"+params.shopsCheck[i])
             def shop=Shop.get(params.shopsCheck[i])
             if(!shop){
+                render("error")
+                return
+            }else if(shop.user!=user){
                 render("error")
                 return
             }
@@ -162,4 +169,54 @@ class GoodsController {
             redirect(controller:"user",action: "frame_goods")
         }
     }
+    
+    def goodslist(Integer max,Long id){
+        params.max = Math.min(max ?: 10, 100)
+        def shop=Shop.get(id)
+        if(!shop){
+            flash.message="不存在这样的店铺"
+            return
+        }
+        def goodsInstanceList=shop.goods
+        println(goodsInstanceList.size())
+        [goodsInstanceList: goodsInstanceList, goodsInstanceTotal: goodsInstanceList.size()]
+    }
+    
+    def onsale(Long id) {
+        def goodsInstance = Goods.get(id)
+        if (!goodsInstance) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'goods.label', default: 'Goods'), id])
+            redirect(action: "list")
+            return
+        }
+
+        [goodsInstance: goodsInstance]
+    }
+    
+    def count(Long id){
+        
+        def goodsInstance = Goods.get(id)
+        if (!goodsInstance) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'goods.label', default: 'Goods'), id])
+            redirect(action: "list")
+            return
+        }
+        if(params.onsaleOp){
+            goodsInstance.onsale=params.onsaleOp
+        }else{
+            
+        
+            BigDecimal price=new BigDecimal(params.onsalePrice) 
+            println(price)
+            goodsInstance.onsalePrice=price
+        
+            goodsInstance.onsale="true"
+        }
+        if (!goodsInstance.save(flush: true)) {
+                render("保存失败")
+                return
+        }
+        redirect(controller:"goods",action: "show",id:id)
+    }
+    
 }

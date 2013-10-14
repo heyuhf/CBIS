@@ -14,20 +14,18 @@
   <body>
     
     <div class="index">店铺管理-》店铺列表</div>
-    <g:if test="${flash.message}">
-      <div class="message" role="status">${flash.message}</div>
-    </g:if>
+    
     
     <table>
       <thead>
         <tr>
-          <g:sortableColumn property="shopName" title="店铺名" />
+          <g:sortableColumn property="shopName" title="店铺名" style="width: 100px" />
           
-          <g:sortableColumn property="address" title="${message(code: 'shop.address.label', default: '店铺地址')}" />
+          <g:sortableColumn property="address" title="${message(code: 'shop.address.label', default: '店铺地址')}" style="width: 100px" />
 					
-          <g:sortableColumn property="description" title="描述" />
+          <g:sortableColumn property="description" title="描述" style="width: 100px"/>
 					
-          <g:sortableColumn property="shopLogoUrl" title="图标" />
+          <g:sortableColumn property="shopLogoUrl" title="图标" style="width: 100px" />
 					
           <th>操作</th>
 					
@@ -35,17 +33,17 @@
 	</thead>
 	<tbody>
           <g:each in="${shopInstanceList}" status="i" var="shopInstance">
-            <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+            <tr class="shoplist_tr">
 					
-              <td><g:link controller="shop" action="show" id="${shopInstance.id}">${fieldValue(bean: shopInstance, field: "shopName")}</g:link></td>
+              <td style="text-align: center;"><g:link controller="shop" action="show" id="${shopInstance.id}">${fieldValue(bean: shopInstance, field: "shopName")}</g:link></td>
 					
-              <td>${fieldValue(bean: shopInstance, field: "address")}</td>
+              <td style="text-align: center;">${fieldValue(bean: shopInstance, field: "address")}</td>
           
-              <td>${fieldValue(bean: shopInstance, field: "description")}</td>
+              <td style="text-align: center;">${fieldValue(bean: shopInstance, field: "description")}</td>
 					
-              <td>${fieldValue(bean: shopInstance, field: "shopLogoUrl")}</td>
+              <td style="text-align: center;"><img src="../${fieldValue(bean: shopInstance, field: "shopLogoUrl")}" height="40px" /></td>
               
-              <td><g:link controller="shop" action="edit" id="${shopInstance.id}">编辑</g:link>/<g:link controller="shop" action="edit" id="${shopInstance.id}">删除</g:link></td>
+              <td style="text-align: center;"><g:link controller="shop" action="edit" id="${shopInstance.id}">编辑</g:link>/<g:link controller="shop" action="deleteshop" id="${shopInstance.id}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: '删除店铺将会删除店铺内所有商品，继续？')}');">删除</g:link></td>
 					
             </tr>
           </g:each>

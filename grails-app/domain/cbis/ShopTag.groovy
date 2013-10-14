@@ -6,4 +6,5 @@ class ShopTag {
     static hasMany=[shops:Shop]
     static constraints = {
     }
+    
 }

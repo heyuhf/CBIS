@@ -12,6 +12,7 @@ body{
 
 .clear{
     clear: both;
+    height:0px;
 }
 
 .message{
@@ -22,15 +23,19 @@ body{
 
 /* NAVIGATION MENU */
 .nav {
-	background-color: #efefef;
-	padding: 0.5em 0.75em;
-	box-shadow: 0 0 5px 1px #aaaaaa;
+	background-image: url('../images/desx/nav.png');
+        
+	height: 40px;
+	margin: 0px;
 	
 }
 
 .nav ul {
+        margin: 0px;
+        
 	overflow: hidden;
-	padding-left: 0;
+	padding-left: 400px;
+        padding-top: 8px;
 	zoom: 1;
 }
 
@@ -43,31 +48,91 @@ body{
 }
 
 /*CONTENT*/
-#content{
+.content{
+    background-image: url('../images/desx/bg.jpg');
+    margin: 0px;
+    position: relative;
+    padding-bottom: 30px;
+    min-height: 550px;
+    overflow:hidden;
+}
+
+.content_top{
+    height: 86px;
+    background-image: url('../images/desx/content_top.png');
+    background-repeat: no-repeat;
+    margin-left: 25px;
+    margin-top: 5px;
+}
+
+.content_top_title{
+    height: 73px;
+    
+    background-image: url('../images/desx/content_top_title.png');
+    background-repeat: no-repeat;
+}
+
+.ad_picbox{
+    padding-left: 300px;
+}
+
+.list_content ul{
+    padding: 0px;
+    margin: 0px;
     
 }
+
+.list_content li{
+    list-style-type: none;
+    text-align: right;
+    padding-right: 50px;
+    padding-top: 3px;
+    height: 30px;
+}
+
+.list_content a:hover{
+    background-color: #9dda2b;
+}
+
+.li_first{
+    
+}
+
+.ad_li{
+    
+}
+
+.tablelist_td{
+    text-align: center;
+}
+
 #content_left{
     
     width: 25%;
     float: left;
-    border: 2px solid #EEE;
-    box-shadow: 0 0 5px mediumslateblue;
-    background-color: #ccccff;
+   
+    
 }
 #content_right{
-    background-color: #ede7e7;
+    
     margin-left: 20px;
     width: 70%;
     float:left;
-    border: 2px solid #EEE;
-    box-shadow: 0 0 5px aqua;
+    
     
 }
 
 .frame_account{
     text-align: left;
-
 }
+.frame_account label{
+    width: 25%;
+}
+
+.frame_account input{
+    margin:0px;
+}
+
  .frame_shop {
     text-align: left;
 
@@ -82,17 +147,96 @@ body{
 }
 
 .index{
+    padding-top: 7px;
+    background-image: url('../images/desx/top_index.gif');
+    background-repeat: no-repeat;
     text-align: left;
     color: green;
+    height: 40px;
+    
 }
 
 .index a{
     color: green;
+    
+}
+
+/*bottom*/
+
+.bottom {
+    position: relative;
+    background-image: url('../images/desx/footer.png');
+    height: 100px;
+}
+
+.bottom ul {
+        margin-top: 0px;
+        margin-bottom: 0px;
+	margin-left: 500px;
+        padding-top: 17px;
+        font-size: 13px;
+}
+.bottom li {
+	display: block;
+	float: left;
+	list-style-type: none;
+	margin-right: 0.5em;
+	padding: 0;
 }
 
 
+
+.top{
+    background-image: url('../images/desx/top.png');
+    background-repeat: no-repeat;
+    height: 96px;
+}
+
+
+
+.top_wrap{
+    padding-top: 40px;
+}
+
+.logo_name{
+    float: left;
+    padding-left: 15px;
+    width: 70%;
+}
+
+.top_search{
+    float: left;
+    
+}
+
+.search_box{
+    background: url('../images/desx/search.png') no-repeat 0 0,url('../images/desx/line.png') no-repeat 25px 0;
+    padding-left: 32px;
+    background-color: white;
+    height: 25px;
+    width: 120px;
+}
+
 /*登陆*/
+.mid_box{
+    margin-left: 49px;
+    height: 400px;
+    width: 800px;
+    background-color: white;
+}
+
+
+
 .login_box{
+    background-image: url('../images/desx/loginbox.png');
+    background-color: white;
+    background-repeat: repeat-y;
+    position: absolute;
+    left: 49px;
+    top: -40px;
+    width: 268px;
+    padding-top: 60px;
+    /*
     background-color: #EEE;
     border: .2em solid #FFF;
     border-radius: 0.6em;
@@ -106,17 +250,19 @@ body{
     padding-right: 10px !important;  
     padding-right: 15px;
     width: 270px;
+    */
 }
 
 .login_input{
-    text-align: right;
-    margin-top: 10px;
-    
+    position: relative;
+    text-align: left;
+    padding-top: 40px;
+    padding-left: 40px;
 }
 
 label{
     cursor: pointer;
-    text-align: right;
+    padding-left: 10px;
     display: inline-block;
 }
 
@@ -124,30 +270,94 @@ label{
     height: 30px;
     font-size: 15px;
     size: 15px;
+    color: gray;
+    padding-left: 30px;
+    
 }
 
+.username{
+    background: url('../images/desx/icon.png') no-repeat 0 4px;
+    
+}
+
+.password{
+    background: url('../images/desx/icon.png') no-repeat 0 4px;
+    background-position: 0 -65px;
+    
+    
+}
+.password_label{
+    color: gray;
+    position: absolute;
+    text-align: left;
+    font-size: 15px;
+    left: 42px;
+    top: 47px;
+    padding-left: 30px;
+    cursor: text;
+}
+
+
 .login_button{
-    margin-top: 10px;
+    margin-top: 20px;
     margin-left: 80px;
     width: 100px;
     height: 40px;
     color: green;
 }
 
-/*bottom*/
-#bottom hr{
-    color: red;
-    margin-top: 20px;
+.frame_account ul{
+    list-style-type: none;
     
 }
-#bottom ul {
-	margin-left: 500px;
-        font-size: 13px;
+
+.frame_account li{
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
-#bottom li {
-	display: block;
-	float: left;
-	list-style-type: none;
-	margin-right: 0.5em;
-	padding: 0;
+
+.shoplist_tr{
+    text-align: center;
+    height: 40px;
+    background-color: #9dda2b;
+    overflow:hidden;
+    
 }
+
+.addshop{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.frame_addgoods{
+    text-align: left;
+}
+
+.normal_form{
+    text-align: left;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    
+}
+
+.addgoodslabel{
+    width: 25%;
+    
+}
+
+.addad{
+    text-align: left;
+}
+
+/*页面元素*/
+.tagclose{
+    text-decoration: none;
+    width: 5px;
+    background: url(../images/desx/grayclose.jpg) no-repeat;
+}
+
+a.tagclose:hover{
+    background: url(../images/desx/redclose.jpg) no-repeat;
+    
+}
+

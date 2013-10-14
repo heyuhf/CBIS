@@ -95,12 +95,42 @@ class AdController {
     }
 
     def update(Long id, Long version) {
+        
+        
+        def user=User.findByUserName(session.userName)
+        if(!user){
+            flash.message="您的登录已失效，请重新登录！"
+            redirect(action:"login")
+            return
+        }
         def adInstance = Ad.get(id)
         if (!adInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'ad.label', default: 'Ad'), id])
             redirect(action: "list")
             return
         }
+        
+        params.user=user
+        params.hasEnd="on"
+        Calendar calendar=Calendar.getInstance()
+        calendar.setTime(adInstance.date)
+        println(params.limit_unit)
+        if(params.limit_unit=="1"){
+            calendar.add(Calendar.DAY_OF_MONTH,Integer.parseInt(params.limit_num))
+        }else if(params.limit_unit=="2"){
+            calendar.add(Calendar.DAY_OF_MONTH,(Integer.parseInt(params.limit_num))*7)
+        }else if(params.limit_unit=="3"){
+            calendar.add(Calendar.MONTH, Integer.parseInt(params.limit_num))
+        }else if(params.limit_unit=="4"){
+            calendar.add(Calendar.YEAR, Integer.parseInt(params.limit_num))
+        }else if(params.limit_unit=="5"){
+            params.hasEnd=false
+        }
+        params.deadline=calendar.getTime()
+        
+        
+        
+        
 
         if (version != null) {
             if (adInstance.version > version) {
@@ -112,7 +142,9 @@ class AdController {
             }
         }
 
-        adInstance.properties = params
+        adInstance.title = params.title
+        adInstance.deadline=params.deadline
+        adInstance.content=params.content
 
         if (!adInstance.save(flush: true)) {
             render(view: "edit", model: [adInstance: adInstance])
@@ -122,7 +154,7 @@ class AdController {
         flash.message = message(code: 'default.updated.message', args: [message(code: 'ad.label', default: 'Ad'), adInstance.id])
         redirect(action: "show", id: adInstance.id)
     }
-
+/*
     def delete(Long id) {
         def adInstance = Ad.get(id)
         if (!adInstance) {
@@ -141,4 +173,24 @@ class AdController {
             redirect(action: "show", id: id)
         }
     }
+    */
+    def deletead(Long id) {
+        def adInstance = Ad.get(id)
+        if (!adInstance) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'ad.label', default: 'Ad'), id])
+            redirect(action: "list")
+            return
+        }
+
+        try {
+            adInstance.delete(flush: true)
+            flash.message = message(code: 'default.deleted.message', args: [message(code: 'ad.label', default: 'Ad'), id])
+            redirect(controller:"user",action: "frame_ads")
+        }
+        catch (DataIntegrityViolationException e) {
+            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'ad.label', default: 'Ad'), id])
+            render("error")
+        }
+    }
+    
 }

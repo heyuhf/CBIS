@@ -2,6 +2,7 @@ package cbis
 
 import org.springframework.dao.DataIntegrityViolationException
 import java.text.SimpleDateFormat
+import org.springframework.web.multipart.MultipartHttpServletRequest
 
 class ShopController {
 
@@ -107,13 +108,14 @@ class ShopController {
     }
 
     def update(Long id, Long version) {
+        
         def shopInstance = Shop.get(id)
         if (!shopInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'shop.label', default: 'Shop'), id])
             redirect(action: "list")
             return
         }
-
+/*
         if (version != null) {
             if (shopInstance.version > version) {
                 shopInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
@@ -123,18 +125,42 @@ class ShopController {
                 return
             }
         }
-
-        shopInstance.properties = params
-
+        */
+        params.shopLogoUrl=shopInstance.shopLogoUrl
+        
+        def file=request.getFile('shopLogo')
+        if(!file.empty){
+            def fileName=file.getOriginalFilename()
+            def timeFormat=new SimpleDateFormat("yyyyMMddHHmmss")
+            def time=timeFormat.format(new Date())
+            def random=new Random()
+            def rand=random.nextInt(1000)
+            def filetype=fileName.substring(fileName.indexOf(".")+1)
+            def filepath=new File("web-app/uploads/shopLogo/${time}${rand}.${filetype}")
+            filepath.mkdirs()
+            params.shopLogoUrl="uploads/shopLogo/${time}${rand}.${filetype}"
+            file.transferTo(filepath)
+        }
+        
+        //shopInstance.properties = params
+        shopInstance.shopName=params.shopName
+        shopInstance.address=params.address
+        shopInstance.description=params.description
+        shopInstance.shopLogoUrl=params.shopLogoUrl
+        
+        
+        
         if (!shopInstance.save(flush: true)) {
             render(view: "edit", model: [shopInstance: shopInstance])
             return
         }
+        //============删除原先图片
 
         flash.message = message(code: 'default.updated.message', args: [message(code: 'shop.label', default: 'Shop'), shopInstance.id])
         redirect(action: "show", id: shopInstance.id)
     }
 
+    /*原备份
     def delete(Long id) {
         def shopInstance = Shop.get(id)
         if (!shopInstance) {
@@ -153,6 +179,31 @@ class ShopController {
             redirect(action: "show", id: id)
         }
     }
+    */
+    def deleteshop(Long id) {
+        def shopInstance = Shop.get(id)
+        if(shopInstance.user.userName!=session.userName){
+            flash.message="您不能删除不属于自己的店铺"
+            redirect(controller:"user",action:"frame_shop")
+            return
+        }
+        if (!shopInstance) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'shop.label', default: 'Shop'), id])
+            redirect(action: "list")
+            return
+        }
+
+        try {
+            shopInstance.delete(flush: true)
+            flash.message = message(code: 'default.deleted.message', args: [message(code: 'shop.label', default: 'Shop'), id])
+            redirect(controller: "user" ,action: "frame_shop")
+        }
+        catch (DataIntegrityViolationException e) {
+            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'shop.label', default: 'Shop'), id])
+            redirect(action: "show", id: id)
+        }
+    }
+    
     
     def success(Long id){
         def shopInstance=Shop.get(id)
